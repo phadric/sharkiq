@@ -1,7 +1,6 @@
 """Various constants"""
 
-DEVICE_URL = "https://ads-field.aylanetworks.com"
-LOGIN_URL = "https://user-field.aylanetworks.com"
-SHARK_APP_ID = "Shark-Android-field-id"
-SHARK_APP_SECRET = "Shark-Android-field-Wv43MbdXRM297HUHotqe6lU1n-w"
-
+DEVICE_URL = "https://ads-eu.aylanetworks.com"
+LOGIN_URL = "https://user-field-eu.aylanetworks.com"
+SHARK_APP_ID = "Shark-Android-EUField-Fw-id"
+SHARK_APP_SECRET = "Shark-Android-EUField-s-zTykblGJujGcSSTaJaeE4PESI"
