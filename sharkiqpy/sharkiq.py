@@ -8,7 +8,6 @@ from collections import abc, defaultdict
 from datetime import datetime
 from pprint import pformat
 from typing import Any, Dict, Iterable, List, Optional, Set, Union, TYPE_CHECKING
-from .const import DEVICE_URL
 from .exc import SharkIqReadOnlyPropertyError
 
 try:
@@ -139,7 +138,7 @@ class SharkIqVacuum:
     @property
     def metadata_endpoint(self) -> str:
         """Endpoint for device metadata"""
-        return f'{DEVICE_URL:s}/apiv1/dsns/{self._dsn:s}/data.json'
+        return f'{self.ayla_api.device_url:s}/apiv1/dsns/{self._dsn:s}/data.json'
 
     def _update_metadata(self, metadata: List[Dict]):
         data = [d['datum'] for d in metadata if d.get('datum', {}).get('key', '') == 'sharkDeviceMobileData']
@@ -166,7 +165,7 @@ class SharkIqVacuum:
 
     def set_property_endpoint(self, property_name) -> str:
         """Get the API endpoint for a given property"""
-        return f'{DEVICE_URL:s}/apiv1/dsns/{self._dsn:s}/properties/{property_name:s}/datapoints.json'
+        return f'{self.ayla_api.device_url:s}/apiv1/dsns/{self._dsn:s}/properties/{property_name:s}/datapoints.json'
 
     def get_property_value(self, property_name: PropertyName) -> Any:
         """Get the value of a property from the properties dictionary"""
@@ -204,7 +203,7 @@ class SharkIqVacuum:
     @property
     def update_url(self) -> str:
         """API endpoint to fetch updated device information"""
-        return f'{DEVICE_URL}/apiv1/dsns/{self.serial_number}/properties.json'
+        return f'{self.ayla_api.device_url}/apiv1/dsns/{self.serial_number}/properties.json'
 
     def update(self, property_list: Optional[Iterable[str]] = None):
         """Update the known device state"""
@@ -299,7 +298,7 @@ class SharkIqVacuum:
         property_id = self.properties_full[property_name]['key']
         if self.properties_full[property_name].get('base_type') != 'file':
             raise ValueError(f'{property_name} is not a file property')
-        return f'{DEVICE_URL:s}/apiv1/properties/{property_id:d}/datapoints.json'
+        return f'{self.ayla_api.device_url:s}/apiv1/properties/{property_id:d}/datapoints.json'
 
     def get_file_property_url(self, property_name: PropertyName) -> Optional[str]:
         """File properties are versioned and need a special lookup"""
